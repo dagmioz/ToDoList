@@ -1,5 +1,5 @@
 package il.ac.hit;
 
 public interface IToDoListDAO {
-//downstream second
+// second
 }
