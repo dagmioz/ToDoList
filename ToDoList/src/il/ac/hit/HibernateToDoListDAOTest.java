@@ -56,7 +56,7 @@ public class HibernateToDoListDAOTest {
 
 	@Test
 	public void testAddItem() {
-		fail("Not yet implemented");
+			fail("Not yet implemented");
 	}
 
 	@Test
