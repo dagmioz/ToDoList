@@ -36,12 +36,9 @@ public class HibernateToDoListDAOTest {
 
 	@Test
 	public void testGetUsers() {
-		HibernateToDoListDAO a = HibernateToDoListDAO.getInstance();
+		HibernateToDoListDAO model = HibernateToDoListDAO.getInstance();
 		try {
-			for(User u:a.getUsers())
-			{
-				System.out.println(u);
-			}
+			System.out.println(model.getUsers());
 			assertTrue(true);
 		} catch (ToDoListPlatformException e) {
 			e.printStackTrace();
@@ -51,12 +48,37 @@ public class HibernateToDoListDAOTest {
 
 	@Test
 	public void testGetItems() {
-		fail("Not yet implemented");
+		HibernateToDoListDAO model = HibernateToDoListDAO.getInstance();
+		try {
+			System.out.println(model.getItems());
+			assertTrue(true);
+		} catch (ToDoListPlatformException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 
 	@Test
 	public void testAddItem() {
-			fail("Not yet implemented");
+		HibernateToDoListDAO model = HibernateToDoListDAO.getInstance();
+		Item i = new Item();
+		i.setAllDay(true);
+		i.setCompleted(false);
+		i.setDetails("Buy Watermelon on the way home.");
+		try {
+			i.setUser(model.getUsers().get(1));
+		} catch (ToDoListPlatformException e1) {
+			e1.printStackTrace();
+		}
+		i.setName("Watermelon");
+		try {
+			model.addItem(i);
+			System.out.println(i);
+			assertTrue(true);
+		} catch (ToDoListPlatformException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
 	}
 
 	@Test
