@@ -84,6 +84,7 @@ public class HibernateToDoListDAOTest {
 	@Test
 	public void testDeleteItem() {
 		fail("Not yet implemented");
+		//add this line to test the commit , pull and push command on shell
 	}
 
 }
