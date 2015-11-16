@@ -9,5 +9,5 @@ public interface IToDoListDAO {
 	public List<Item> getItems() throws ToDoListPlatformException;
 	public void addItem(Item item) throws ToDoListPlatformException;
 	public boolean deleteItem(Item item) throws ToDoListPlatformException;
-	//public void completeItem() throws ToDoListPlatformException;
+	public boolean updateItem(Item item) throws ToDoListPlatformException;
 }

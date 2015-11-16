@@ -51,8 +51,8 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 			if ( session.getTransaction() != null )
 				session.getTransaction().rollback();
 		} finally {
-if (session != null)
-			session.close(); //may want to add try - catch
+			if (session != null)
+				session.close(); //may want to add try - catch
 		} 
 	}
 
@@ -128,7 +128,6 @@ if (session != null)
 			if (session != null)
 				session.close(); //may want to add try - catch
 		} 
-		
 	}
 
 	@Override
@@ -148,5 +147,24 @@ if (session != null)
 				session.close(); //may want to add try - catch
 		} 
 		return false;
+	}
+
+	@Override
+	public boolean updateItem(Item item) throws ToDoListPlatformException {
+		Session session = factory.openSession();
+		try {
+			session.beginTransaction();
+			session.update(item);//this is the only change from add item function - ask haim
+			session.getTransaction().commit();
+			return true;
+		}
+		catch ( HibernateException e ) {
+			if ( session.getTransaction() != null )
+				session.getTransaction().rollback();
+		} finally {
+			if (session != null)
+				session.close(); //may want to add try - catch
+		}
+		return false; 
 	}
 }

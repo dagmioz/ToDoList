@@ -20,7 +20,6 @@ public class Item implements java.io.Serializable{
 	private static final long serialVersionUID = 8059316066589799229L;
 	private int idItem;
 	private String whatToDo;
-	private boolean completed;
 	private User user;
 	
 	public Item() {}
@@ -32,13 +31,6 @@ public class Item implements java.io.Serializable{
 	
 	public void setIdItem(int idItem) {
 		this.idItem = idItem;
-	}
-	
-	public boolean isCompleted() {
-		return completed;
-	}
-	public void setCompleted(boolean completed) {
-		this.completed = completed;
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
@@ -60,7 +52,7 @@ public class Item implements java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "Item [idItem=" + idItem + ", whatToDo=" + whatToDo + ", completed=" + completed + ", userID=" + user.getIdUser()
+		return "Item [idItem=" + idItem + ", whatToDo=" + whatToDo + ", userID=" + user.getIdUser()
 				+ "]";
 	}
 

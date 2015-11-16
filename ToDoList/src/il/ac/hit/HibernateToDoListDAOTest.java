@@ -77,7 +77,6 @@ public class HibernateToDoListDAOTest {
 		
 		
 		Item i = new Item();
-		i.setCompleted(false);
 		i.setWhatToDo("Buy Watermelon on the way home.");
 		try {
 			i.setUser(model.getUsers().get(0));
