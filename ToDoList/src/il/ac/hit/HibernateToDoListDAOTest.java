@@ -84,6 +84,7 @@ public class HibernateToDoListDAOTest {
 	@Test
 	public void testDeleteItem() {
 		fail("Not yet implemented");
+		//check push
 	}
 
 }
