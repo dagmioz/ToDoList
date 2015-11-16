@@ -79,15 +79,11 @@ public class HibernateToDoListDAOTest {
 			e.printStackTrace();
 			assertTrue(false);
 		}
-		//check another function
 	}
 
 	@Test
 	public void testDeleteItem() {
 		fail("Not yet implemented");
-		//check push
-		//check again
-		//check git add 
 	}
 
 }
