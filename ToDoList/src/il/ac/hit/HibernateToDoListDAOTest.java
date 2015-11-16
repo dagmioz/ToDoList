@@ -87,7 +87,7 @@ public class HibernateToDoListDAOTest {
 		fail("Not yet implemented");
 		//check push
 		//check again
-		
+		//check git add 
 	}
 
 }
