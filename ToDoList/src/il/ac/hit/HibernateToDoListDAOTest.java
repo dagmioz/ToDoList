@@ -79,6 +79,7 @@ public class HibernateToDoListDAOTest {
 			e.printStackTrace();
 			assertTrue(false);
 		}
+		//check another function
 	}
 
 	@Test
@@ -86,6 +87,7 @@ public class HibernateToDoListDAOTest {
 		fail("Not yet implemented");
 		//check push
 		//check again
+		
 	}
 
 }
