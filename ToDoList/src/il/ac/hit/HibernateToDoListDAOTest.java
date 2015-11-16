@@ -15,8 +15,8 @@ public class HibernateToDoListDAOTest {
 	public void testAddUser() {
 		HibernateToDoListDAO a = HibernateToDoListDAO.getInstance();
 		User u = new User();
-		u.setEmail("hey@you.com");
-		u.setIdUser(0);
+		u.setPassword("123456");
+		u.setIdUser(1);
 		u.setName("me");
 		try {
 			a.addUser(u);
@@ -61,16 +61,29 @@ public class HibernateToDoListDAOTest {
 	@Test
 	public void testAddItem() {
 		HibernateToDoListDAO model = HibernateToDoListDAO.getInstance();
-		Item i = new Item();
-		i.setAllDay(true);
-		i.setCompleted(false);
-		i.setDetails("Buy Watermelon on the way home.");
+		
+		User u = new User();
+		u.setPassword("123456");
+		u.setName("moses");
 		try {
-			i.setUser(model.getUsers().get(1));
+			model.addUser(u);
+			System.out.println(u);
+			assertTrue(true);
+		} catch (ToDoListPlatformException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+		
+		
+		Item i = new Item();
+		i.setCompleted(false);
+		i.setWhatToDo("Buy Watermelon on the way home.");
+		try {
+			i.setUser(model.getUsers().get(0));
 		} catch (ToDoListPlatformException e1) {
 			e1.printStackTrace();
 		}
-		i.setName("Watermelon");
 		try {
 			model.addItem(i);
 			System.out.println(i);

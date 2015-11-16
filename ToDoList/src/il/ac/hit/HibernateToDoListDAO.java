@@ -3,13 +3,11 @@ package il.ac.hit;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 //In Hibernate 3.6, org.hibernate.cfg.AnnotationConfiguration is deprecated, and all its functionality has been moved to org.hibernate.cfg.Configuration.
 //Link: http://stackoverflow.com/questions/28064007/what-is-the-difference-between-annotationconfiguration-and-configuration-in-hibe
 import org.hibernate.cfg.Configuration; 
@@ -26,33 +24,14 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 			throw new IllegalStateException("Already instantiated");
 		}
 		try{
-		//else
-		//factory = new Configuration().configure().buildSessionFactory();
-		System.out.println("Connect to DB: Configure configuration.");
-		Configuration configuration = new Configuration().configure(); 
-		//System.out.println("Connect to DB: Apply settings.");
-        //StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().applySettings(configuration.getProperties());
-        System.out.println("Connect to DB: Build session factory.");
-        factory = configuration.buildSessionFactory();
+			System.out.println("Connect to DB: Configure configuration.");
+			Configuration configuration = new Configuration().configure(); 
+	        System.out.println("Connect to DB: Build session factory.");
+	        factory = configuration.buildSessionFactory();
 		}
 		catch(Exception e){
 			e.printStackTrace();
-		}
-        /*
-		//code was taken from http://docs.jboss.org/hibernate/orm/5.0/quickstart/html/
-		final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-				.configure() // configures settings from hibernate.cfg.xml
-				.build();
-		try {
-			factory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
-		}
-		catch (Exception e) {
-			// The registry would be destroyed by the SessionFactory, but we had trouble building the SessionFactory
-			// so destroy it manually.
-			StandardServiceRegistryBuilder.destroy( registry );
-		}
-		*/
-		
+		}	
 	}
 	
 	public static HibernateToDoListDAO getInstance()
@@ -72,7 +51,7 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 			if ( session.getTransaction() != null )
 				session.getTransaction().rollback();
 		} finally {
-			if (session != null)
+if (session != null)
 			session.close(); //may want to add try - catch
 		} 
 	}
@@ -90,49 +69,48 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 			if ( session.getTransaction() != null )
 				session.getTransaction().rollback();
 		} finally {
-			if (session != null)
+if (session != null)
 			session.close(); //may want to add try - catch
 		} 
 		return false;
 	}
 
 	@Override
-	public ArrayList<User> getUsers() throws ToDoListPlatformException {
+	public List<User> getUsers() throws ToDoListPlatformException {
 		Session session = factory.openSession();
 		try {
-			session.beginTransaction();
-			List<User> result = session.createSQLQuery("select * from user").list();//createQuery("from user u").list();
-			session.getTransaction().commit();
-			return (ArrayList<User>)result;
-		}
-		catch ( HibernateException e ) {
-			if ( session.getTransaction() != null )
-				session.getTransaction().rollback();
+			Query query = session.createQuery("from User u");
+			List queryList = query.list();
+			if(queryList != null && queryList.isEmpty())
+				return null;
+			else
+				return (List<User>)queryList;
+		} 
+		catch ( Exception e ) {
+			throw new ToDoListPlatformException("unable to get users list from database");
 		} finally {
 			if (session != null)
-			session.close(); //may want to add try - catch
+				session.close(); //may want to add try - catch
 		} 
-		
-		return null;
 	}
 
 	@Override
-	public ArrayList<Item> getItems() throws ToDoListPlatformException {
+	public List<Item> getItems() throws ToDoListPlatformException {
 		Session session = factory.openSession();
 		try {
-			session.beginTransaction();
-			List result = session.createQuery("from Item").list();
-			session.getTransaction().commit();
-			return (ArrayList<Item>)result;
+			Query query = session.createQuery("from Item i");
+			List queryList = query.list();
+			if(queryList != null && queryList.isEmpty())
+				return null;
+			else
+				return (List<Item>)queryList;
 		}
 		catch ( HibernateException e ) {
-			if ( session.getTransaction() != null )
-				session.getTransaction().rollback();
+			throw new ToDoListPlatformException("unable to get items list from database");
 		} finally {
 			if (session != null)
-			session.close(); //may want to add try - catch
+				session.close(); //may want to add try - catch
 		} 
-		return null;
 	}
 
 	@Override
@@ -148,7 +126,7 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 				session.getTransaction().rollback();
 		} finally {
 			if (session != null)
-			session.close(); //may want to add try - catch
+				session.close(); //may want to add try - catch
 		} 
 		
 	}
@@ -167,26 +145,8 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 				session.getTransaction().rollback();
 		} finally {
 			if (session != null)
-			session.close(); //may want to add try - catch
+				session.close(); //may want to add try - catch
 		} 
 		return false;
 	}
-	
-	public void updateItem(Item item) throws ToDoListPlatformException{
-		Session session = factory.openSession();
-		try {
-			session.beginTransaction();
-			session.update(item);
-			session.getTransaction().commit();
-		}
-		catch (HibernateException e){
-			if (session.getTransaction() != null)
-				session.getTransaction().rollback();
-		}
-		finally {
-			if (session != null)
-			session.close();
-		}
-	}
-
 }
