@@ -1,6 +1,5 @@
 package il.ac.hit;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.HibernateException;

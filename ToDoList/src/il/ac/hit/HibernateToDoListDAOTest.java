@@ -3,9 +3,6 @@ package il.ac.hit;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.junit.Test;
 
