@@ -3,6 +3,9 @@ package il.ac.hit;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Test;
 
@@ -165,10 +168,14 @@ public class HibernateToDoListDAOTest {
 		//The objective
 		Item i = new Item();
 		i.setWhatToDo("Buy Bananas on the way home.");
-		ArrayList<User> allUsers = new ArrayList<User>();//empty list
 		try {
-			allUsers.addAll(model.getUsers());
-			i.setUser(allUsers.stream().filter(s -> s.getName() == "Jelly").findFirst().get());
+			for(User someone:model.getUsers()){
+				if(someone.getName().equals("Jelly"))
+				{
+					i.setUser(someone);
+					break;
+				}
+			}
 			model.addItem(i);
 			assertTrue(true);
 		} catch (ToDoListPlatformException e) {
@@ -192,7 +199,55 @@ public class HibernateToDoListDAOTest {
 
 	@Test
 	public void testDeleteItem() {
-		fail("Not yet implemented");
+		HibernateToDoListDAO model = HibernateToDoListDAO.getInstance();
+		
+		//Prepare database - Create users
+		User u = new User();
+		u.setName("Melon");
+		u.setPassword("RemoveIt3m");
+		
+		try {
+			model.addUser(u);
+			System.out.println("testRemoveItem : Successfully created user - " + u.getName());
+		} catch (ToDoListPlatformException e) {
+			System.out.println("testRemoveItem : Failed to create user. There will be nothing to get - failing this test...");
+			e.printStackTrace();
+			assertTrue(false);
+			return;
+		}
+		
+		//The objective
+		Item i = new Item();
+		i.setWhatToDo("Buy water on the way home.");
+		try {
+			for(User someone:model.getUsers()){
+				if(someone.getName().equals("Melon"))
+				{
+					i.setUser(someone);
+					break;
+				}
+			}
+			model.addItem(i);
+			assertTrue(true);
+		} catch (ToDoListPlatformException e) {
+			e.printStackTrace();
+			assertTrue(false);
+		}
+		
+		//Clean database - Delete users
+		try
+		{
+			//List<Item> allItems = model.getItems();
+			//allItems.
+			User tempUser = i.getUser();
+			model.deleteItem(i);
+			model.deleteUser(tempUser);
+			System.out.println("testRemoveItem : Successfully Deleted User and item");
+		} catch(ToDoListPlatformException e)
+		{
+			System.out.println("testRemoveItem : Unable to delete item.");
+			e.printStackTrace();
+		}
 	}
 
 }
