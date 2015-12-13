@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/antlr-2.7.7.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/geronimo-jta_1.1_spec-1.1.1.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/hibernate-commons-annotations-5.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/hibernate-core-5.0.2.Final.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/hibernate-jpa-2.1-api-1.0.0.Final.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/jandex-1.2.2.Final.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/javassist-3.18.1-GA.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/Hibernate 5.0.2 Required/jboss-logging-3.3.0.Final.jar"/>
+	<classpathentry kind="lib" path="externalJarFiles/SQL Connectors/mysql-connector-java-5.1.37-bin.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
