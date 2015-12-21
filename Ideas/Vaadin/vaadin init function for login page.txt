@@ -1,0 +1,51 @@
+@Override
+	protected void init(VaadinRequest request) {
+		
+
+		final FormLayout loginFormLayout = new FormLayout();
+		loginFormLayout.setMargin(true);
+		setContent(loginFormLayout);
+		
+		final HorizontalLayout buttonsLayout = new HorizontalLayout();
+		buttonsLayout.setMargin(false);
+		
+		Label headerLabel = new Label("To-Do-List Login Form");
+		headerLabel.addStyleName(Reindeer.LABEL_H1);
+		
+		TextField userName = new TextField("User Name");
+		userName.addValidator(new StringLengthValidator("The user name must be 3-10 letters (input: {0})",3,10,true));
+		userName.addTextChangeListener(new TextChangeListener(){
+			public void textChange(TextChangeEvent event){
+				//loginFormLayout.addComponent(new Label(userName.getValue()));
+			}
+		});
+		PasswordField passwordF = new PasswordField("Password");
+		//passwordF.addValidator(new StringLengthValidator("The user name must be 3-10 letters (input: {0})",3,10,true));
+		Button loginButton = new Button("Login",click -> { // Java 8
+		    //if (! userName.isValid())
+		    //    layout.addComponent(new Label("It's invalid"));
+		    
+		    try {
+		    	userName.validate();
+		    } catch (InvalidValueException e) {
+		        Notification.show(e.getMessage());
+		    }
+		});
+		/*loginButton.addClickListener(new Button.ClickListener() {
+			public void buttonClick(ClickEvent event) {
+				//loginFormLayout.addComponent(new Label("Thank you for clicking"));
+			}
+		});
+		*/
+		Button createAccountButton = new Button("Create New Account");
+		
+		loginFormLayout.addComponent(headerLabel);
+		loginFormLayout.addComponent(userName);
+		loginFormLayout.addComponent(passwordF);
+		
+		buttonsLayout.setSpacing(true);
+		buttonsLayout.addComponent(loginButton);
+		buttonsLayout.addComponent(createAccountButton);
+		loginFormLayout.addComponent(buttonsLayout);
+		
+	}
