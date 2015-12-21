@@ -24,12 +24,21 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("loginServlet - doGet");
 		String url = request.getRequestURI();
+		
 		if(request.getSession().getAttribute("userData")!=null){
+			System.out.println("logged in user entered doGet() on LoginServlet");
 			if(url.endsWith("/logout"))
+			{
 				request.getSession().removeAttribute("userData");
-			else
+				System.out.println("logout - cleaned session userData");
+			}
+			else // /login/*
+			{
 		         response.sendRedirect("/ToDoList/myToDoItems");
+		         System.out.println("logged in user entered login page and was redirected to /ToDoList/myToDoItems");
+			}
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
 		dispatcher.forward(request, response);
@@ -39,16 +48,21 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("loginServlet - doPost");
 		try
 		{
 			User user = new User();
 		    user.setName(request.getParameter("userName"));
 		    user.setPassword(request.getParameter("password"));
-			if(request.getAttribute("login") != null)
+		    System.out.println("login (Post) request recieved: " + user);
+			if(request.getParameter("login") != null)
 			{
+		    	System.out.println("login (Post) Parameter [login]");
+				System.out.println("login (Post) request recieved: " + user);
 			    User authorizedUser = HibernateToDoListDAO.getInstance().login(user);
 			    if (authorizedUser!=null)
 			    {	    
+
 			    	System.out.println(authorizedUser);
 			         request.getSession().setAttribute("userData",authorizedUser);
 			         //RequestDispatcher dispatcher = null;
@@ -61,8 +75,9 @@ public class LoginServlet extends HttpServlet {
 			    else 
 			         response.sendRedirect("invalidLogin.jsp"); //error page 
 			} 
-			else if (request.getAttribute("createNewAccount") != null)
+			else if (request.getParameter("createNewAccount") != null)
 			{
+				System.out.println("login (Post) Parameter [createNewAccount]");
 				HibernateToDoListDAO.getInstance().addUser(user);
 				User authorizedUser = HibernateToDoListDAO.getInstance().login(user);
 			    if (authorizedUser!=null)
@@ -72,6 +87,10 @@ public class LoginServlet extends HttpServlet {
 			    }    
 			    else 
 			         response.sendRedirect("invalidLogin.jsp"); //error page 
+			}
+			else
+			{
+				System.out.println("login (Post) Parameter not [login] or [createNewAccount]");
 			}
 		}
 		catch (Exception ex) 	    

@@ -31,9 +31,23 @@ public class ToDoItemsController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("myToDoItems (Get)");
+		String url = request.getRequestURI();
+		/* /myToDoItems/
+		*	-add?whatToDo
+		*	-complete/id
+		*	-deleteGroup (Post)
+		*/
+		if(url.endsWith("myToDoItems/add")){
+			String whatToDo = request.getParameter("whatToDo");
+			if( whatToDo != null){
+				System.out.println("myToDoItems (Get) Parameter [add]");
+				//request.getSession().getAttribute("whatToDo");
+			}
+		}
 		/*RequestDispatcher dispatcher = null;
 		*/
-		String url = request.getRequestURI();
+		
 		/*
 		String sessionId = "";
 		String userName="";
