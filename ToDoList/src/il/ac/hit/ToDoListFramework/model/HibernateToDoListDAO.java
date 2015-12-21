@@ -1,4 +1,4 @@
-package il.ac.hit.ToDoListFramework.model;
+package il.ac.hit.todolistframework.model;
 
 import java.util.List;
 
@@ -92,6 +92,27 @@ if (session != null)
 				session.close(); //may want to add try - catch
 		} 
 	}
+	
+	@Override
+	public User getUser(String name) throws ToDoListPlatformException {
+		Session session = factory.openSession();
+		try {
+			Query query = session.createQuery("from User u where u.name='"+name+"'");
+			List queryList = query.list();
+			if(queryList != null && queryList.isEmpty())
+				return null;
+			else if(queryList.size() > 1)
+				throw new ToDoListPlatformException("Model-User-getUser: more than 1 user was returned, userName property should be unique, is this a DB curruption?");
+			else
+				return (User) queryList.get(0);
+		} 
+		catch ( Exception e ) {
+			throw new ToDoListPlatformException("unable to get users list from database");
+		} finally {
+			if (session != null)
+				session.close(); //may want to add try - catch
+		} 
+	}
 
 	@Override
 	public List<Item> getItems() throws ToDoListPlatformException {
@@ -166,4 +187,15 @@ if (session != null)
 		}
 		return false; 
 	}
+
+	public User login(User user) throws ToDoListPlatformException {
+		User authenticatedUser = getUser(user.getName());
+		if(authenticatedUser!=null && authenticatedUser.getPassword().equals(user.getPassword()))
+		{
+			return authenticatedUser;
+		}
+		return null;
+	}
+
+
 }

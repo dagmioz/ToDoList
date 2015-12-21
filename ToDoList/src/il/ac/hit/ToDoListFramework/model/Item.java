@@ -1,4 +1,4 @@
-package il.ac.hit.ToDoListFramework.model;
+package il.ac.hit.todolistframework.model;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

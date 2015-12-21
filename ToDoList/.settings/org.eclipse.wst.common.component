@@ -2,6 +2,36 @@
     <wb-module deploy-name="ToDoList">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="jandex-1.2.2.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/jandex-1.2.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="geronimo-jta_1.1_spec-1.1.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/geronimo-jta_1.1_spec-1.1.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-core-5.0.2.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/hibernate-core-5.0.2.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="javassist-3.18.1-GA.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/javassist-3.18.1-GA.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-commons-annotations-5.0.0.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/hibernate-commons-annotations-5.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="mysql-connector-java-5.1.37-bin.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/SQL Connectors/mysql-connector-java-5.1.37-bin.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jboss-logging-3.3.0.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/jboss-logging-3.3.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="hibernate-jpa-2.1-api-1.0.0.Final.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/hibernate-jpa-2.1-api-1.0.0.Final.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="antlr-2.7.7.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/antlr-2.7.7.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="dom4j-1.6.1.jar" deploy-path="/WEB-INF/lib" handle="module:/classpath/lib/ToDoList/externalJarFiles/Hibernate 5.0.2 Required/dom4j-1.6.1.jar">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="ToDoList"/>
         <property name="java-output-path" value="/ToDoList/bin"/>
     </wb-module>

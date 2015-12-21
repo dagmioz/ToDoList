@@ -24,8 +24,8 @@
 	   <property name="show_sql">true</property>
 	   <property name="hibernate.hbm2ddl.auto">update</property>
 	   <!-- Mapping files -->
-	   <mapping class="il.ac.hit.User"/>
-	   <mapping class="il.ac.hit.Item"/>
+	   <mapping class="il.ac.hit.todolistframework.model.User"/>
+	   <mapping class="il.ac.hit.todolistframework.model.Item"/>
 	   <!-- <mapping resource="toDoList.hbm.xml"/> -->
 	   <!--   
 	   <mapping class="org.javabrains.chandu.dto.UserDetails"/>

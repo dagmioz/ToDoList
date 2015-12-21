@@ -1,4 +1,4 @@
-package il.ac.hit.ToDoListFramework.model.test;
+package il.ac.hit.todolistframework.model.test;
 
 import static org.junit.Assert.*;
 
@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import il.ac.hit.ToDoListFramework.model.*;
+import il.ac.hit.todolistframework.model.*;
 
 public class HibernateToDoListDAOTest {
 
