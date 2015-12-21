@@ -25,9 +25,11 @@ public class LoginServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String url = request.getRequestURI();
-		if(url.endsWith("/logout")){
-			if(request.getSession().getAttribute("userData")!=null)
+		if(request.getSession().getAttribute("userData")!=null){
+			if(url.endsWith("/logout"))
 				request.getSession().removeAttribute("userData");
+			else
+		         response.sendRedirect("/ToDoList/myToDoItems");
 		}
 		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/Login.jsp");
 		dispatcher.forward(request, response);
@@ -37,34 +39,44 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//doGet(request, response);
-
 		try
 		{
 			User user = new User();
 		    user.setName(request.getParameter("userName"));
 		    user.setPassword(request.getParameter("password"));
-		    
-		    User authorizedUser = HibernateToDoListDAO.getInstance().login(user);
-		    if (authorizedUser!=null)
-		    {	    
-		    	System.out.println(authorizedUser);
-		         request.getSession().setAttribute("userData",authorizedUser);
-		         //RequestDispatcher dispatcher = null;
-		         response.sendRedirect("/ToDoList/myToDoItems");
-		         
-		         //dispatcher = getServletContext().getRequestDispatcher("/myToDoList.jsp");
-		         //dispatcher.forward(request, response);
-		         //response.sendRedirect("/myToDoItems"); //logged-in page      		
-		    }    
-		    else 
-		         response.sendRedirect("invalidLogin.jsp"); //error page 
-		} 
+			if(request.getAttribute("login") != null)
+			{
+			    User authorizedUser = HibernateToDoListDAO.getInstance().login(user);
+			    if (authorizedUser!=null)
+			    {	    
+			    	System.out.println(authorizedUser);
+			         request.getSession().setAttribute("userData",authorizedUser);
+			         //RequestDispatcher dispatcher = null;
+			         response.sendRedirect("/ToDoList/myToDoItems");
+			         
+			         //dispatcher = getServletContext().getRequestDispatcher("/myToDoList.jsp");
+			         //dispatcher.forward(request, response);
+			         //response.sendRedirect("/myToDoItems"); //logged-in page      		
+			    }    
+			    else 
+			         response.sendRedirect("invalidLogin.jsp"); //error page 
+			} 
+			else if (request.getAttribute("createNewAccount") != null)
+			{
+				HibernateToDoListDAO.getInstance().addUser(user);
+				User authorizedUser = HibernateToDoListDAO.getInstance().login(user);
+			    if (authorizedUser!=null)
+			    {
+			        request.getSession().setAttribute("userData",authorizedUser);
+			        response.sendRedirect("/ToDoList/myToDoItems");
+			    }    
+			    else 
+			         response.sendRedirect("invalidLogin.jsp"); //error page 
+			}
+		}
 		catch (Exception ex) 	    
 		{
 		    ex.printStackTrace(); 
 		}
 	}
-
 }
