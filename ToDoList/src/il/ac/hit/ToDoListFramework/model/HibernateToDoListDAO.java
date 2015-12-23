@@ -41,6 +41,7 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 	@Override
 	public void addUser(User user) throws ToDoListPlatformException {
 		Session session = factory.openSession();
+		User generatedUser = null;
 		try {
 			session.beginTransaction();
 			session.save(user);
@@ -49,10 +50,11 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 		catch ( HibernateException e ) {
 			if ( session.getTransaction() != null )
 				session.getTransaction().rollback();
+			throw new ToDoListPlatformException(e.getMessage());
 		} finally {
 			if (session != null)
 				session.close(); //may want to add try - catch
-		} 
+		}
 	}
 
 	@Override
@@ -68,8 +70,8 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 			if ( session.getTransaction() != null )
 				session.getTransaction().rollback();
 		} finally {
-if (session != null)
-			session.close(); //may want to add try - catch
+			if (session != null)
+				session.close(); //may want to add try - catch
 		} 
 		return false;
 	}
@@ -101,16 +103,16 @@ if (session != null)
 			List queryList = query.list();
 			if(queryList != null && queryList.isEmpty())
 				return null;
-			else if(queryList.size() > 1)
-				throw new ToDoListPlatformException("Model-User-getUser: more than 1 user was returned, userName property should be unique, is this a DB curruption?");
+			else if(queryList.size() > 1) // userName should be unique, is this a DB corruption?
+				throw new ToDoListPlatformException("More than single user was returned");
 			else
 				return (User) queryList.get(0);
 		} 
 		catch ( Exception e ) {
-			throw new ToDoListPlatformException("unable to get users list from database");
+			throw new ToDoListPlatformException("Unable to get users list from the database");
 		} finally {
 			if (session != null)
-				session.close(); //may want to add try - catch
+				session.close();
 		} 
 	}
 
@@ -126,7 +128,7 @@ if (session != null)
 				return (List<Item>)queryList;
 		}
 		catch ( HibernateException e ) {
-			throw new ToDoListPlatformException("unable to get items list from database");
+			throw new ToDoListPlatformException("Unable to get items list from the database");
 		} finally {
 			if (session != null)
 				session.close(); //may want to add try - catch
@@ -168,7 +170,36 @@ if (session != null)
 		} 
 		return false;
 	}
-
+	/*
+	@Override
+	public boolean deleteItem(int itemId) throws ToDoListPlatformException {
+		Session session = factory.openSession();
+		try {
+			//
+			Query query = session.createQuery("from Item i");
+			session.delete(arg0);
+			List queryList = query.list();
+			if(queryList != null && queryList.isEmpty())
+				return null;
+			else
+				return (List<Item>)queryList;
+			//
+			session.beginTransaction();
+			session.delete(item);
+			
+			session.getTransaction().commit();
+			return true;
+		}
+		catch ( HibernateException e ) {
+			if ( session.getTransaction() != null )
+				session.getTransaction().rollback();
+		} finally {
+			if (session != null)
+				session.close(); //may want to add try - catch
+		} 
+		return false;
+	}
+	 */
 	@Override
 	public boolean updateItem(Item item) throws ToDoListPlatformException {
 		Session session = factory.openSession();

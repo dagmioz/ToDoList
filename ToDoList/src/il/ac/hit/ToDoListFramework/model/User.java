@@ -52,8 +52,11 @@ public class User implements java.io.Serializable{
 	 * 
 	 * @param name
 	 */
-	public void setName(String name) {
+	public boolean setName(String name) {
+		if(name == null || name.isEmpty()) //name must not be empty or null
+			return false;
 		this.name = name;
+		return true;
 	}
 	/**
 	 * 
@@ -67,8 +70,11 @@ public class User implements java.io.Serializable{
 	 * 
 	 * @param email
 	 */
-	public void setPassword(String email) {
-		this.password = email;
+	public boolean setPassword(String password) {
+		if(password == null || password.isEmpty())
+			return false;
+		this.password = password;
+		return true;
 	}
 	/**
 	 * 
