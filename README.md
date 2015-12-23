@@ -9,7 +9,8 @@ To Do List Project on Java EE Course , Lecturer : Haim Michael
          -Cookies (Save user and password and reload it everytime instead of login - if not in session - session remains 20 min by default, until logout remove the cookie)
          ...... more bonuses.....
 
-Login Page
+
+![Alt text](ToDoList/Ideas/Images/LoginPage.JPG?raw=true "Login Page")
 ![alt tag](ToDoList/Ideas/Images/LoginPage.JPG)
 To Do Items List
 ![alt tag](ToDoList/Ideas/Images/ToDoItems.JPG)
