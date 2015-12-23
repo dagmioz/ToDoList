@@ -10,6 +10,9 @@ To Do List Project on Java EE Course , Lecturer : Haim Michael
          ...... more bonuses.....
 
 Login Page
+
 ![ToDoList Login](/Ideas/Images/LoginPage.JPG)
+
 To Do Items List
+
 ![ToDoList Items](/Ideas/Images/ToDoItems.JPG)
