@@ -1,5 +1,6 @@
 package il.ac.hit.todolistframework.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -42,12 +43,16 @@ public class Item implements java.io.Serializable{
 		this.user = user;
 	}
 
+	@Column(nullable=false)
 	public String getWhatToDo() {
 		return whatToDo;
 	}
 
-	public void setWhatToDo(String whatToDo) {
+	public boolean setWhatToDo(String whatToDo) {
+		if(whatToDo == null || whatToDo.isEmpty()) //whatToDo must not be empty or null
+			return false;
 		this.whatToDo = whatToDo;
+		return true;
 	}
 
 	@Override
