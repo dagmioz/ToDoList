@@ -111,8 +111,10 @@ public class ToDoItemsController extends HttpServlet {
 		}
 		else
 		{
+			System.out.println("jijiko,");
 			RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MyToDoList.jsp");
 			dispatcher.forward(request, response);
+			System.out.println("jijiko-2,");
 		}
 	}//End of doGet
 
