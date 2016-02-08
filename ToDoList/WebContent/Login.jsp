@@ -51,7 +51,7 @@
 		</fieldset>
 	</form>
 	<!-- 
-	End of login form:
+	End of login form
 	-->
 </div>
 

@@ -19,8 +19,9 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 	private SessionFactory factory;
 	
 	private HibernateToDoListDAO(){
+		System.out.println("Ctor: HibernateToDoListDAO()");
 		if(INSTANCE != null){
-			throw new IllegalStateException("Already instantiated");
+			throw new IllegalStateException("HibernateToDoListDAO was already instantiated");
 		}
 		try{
 			System.out.println("Connect to DB: Configure configuration.");
@@ -29,12 +30,20 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 	        factory = configuration.buildSessionFactory();
 		}
 		catch(Exception e){
+			System.out.println("Ctor: HibernateToDoListDAO()|"+e.getMessage());
 			e.printStackTrace();
 		}	
 	}
 	
 	public static HibernateToDoListDAO getInstance()
 	{
+		try{
+		System.out.println("getInstance():" + INSTANCE!=null);
+		}
+		catch(Exception e)
+		{
+			System.out.println("Error: " + e.getMessage());
+		}
 		return INSTANCE;
 	}
 
@@ -97,7 +106,9 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 	
 	@Override
 	public User getUser(String name) throws ToDoListPlatformException {
+		System.out.println("getUser from hibernate (before openSession)");
 		Session session = factory.openSession();
+		System.out.println("getUser from hibernate (after openSession)");
 		try {
 			Query query = session.createQuery("from User u where u.name='"+name+"'");
 			List queryList = query.list();
@@ -220,6 +231,7 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 	}
 
 	public User login(User user) throws ToDoListPlatformException {
+		System.out.println("login from hibernate...");
 		User authenticatedUser = getUser(user.getName());
 		if(authenticatedUser!=null && authenticatedUser.getPassword().equals(user.getPassword()))
 		{
