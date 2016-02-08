@@ -8,3 +8,11 @@ To Do List Project on Java EE Course , Lecturer : Haim Michael
 * Bonuses: -EJB (Enterprise Java Beans)
          -Cookies (Save user and password and reload it everytime instead of login - if not in session - session remains 20 min by default, until logout remove the cookie)
          ...... more bonuses.....
+
+***Login Page***
+
+![ToDoList Login](/Ideas/Images/LoginPage.JPG)
+
+***To Do Items List***
+
+![ToDoList Items](/Ideas/Images/ToDoItems.JPG)
