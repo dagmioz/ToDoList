@@ -43,7 +43,12 @@ public class ListController {
 				//send message to web page?
 			}
 		}
-		response.sendRedirect("/ToDoList/MyToDoItems");
+		try {
+			response.sendRedirect("/ToDoList/list");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void edit(HttpServletRequest request, HttpServletResponse response) {
@@ -80,20 +85,29 @@ public class ListController {
 		}
 	}
 
-	public void removeGroup(HttpServletRequest request, HttpServletResponse response) {
+	public void removeGroup(ServletContext context, HttpServletRequest request, HttpServletResponse response)
+	{
 		System.out.println("MyToDoItemsController|doPost");
 
 		String[] itemsStr = request.getParameterValues("MyToDoItemCB");
 		if(itemsStr!=null)
 		{
-			if(!isLoggedIn(request,response))
+			if(true)//!isLoggedIn(request,response))
 			{
 				//response.sendRedirect("/ToDoList/MyToDoItems");
-				RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MyToDoList.jsp");
-				dispatcher.forward(request, response);
+				RequestDispatcher dispatcher = context.getRequestDispatcher("/MyToDoList.jsp");
+				try {
+					dispatcher.forward(request, response);
+				} catch (ServletException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				//can instead redirect to login page:
 				//response.sendRedirect("/ToDoList/Login");
-				return;
+				//return;
 			}
 			
 			User user = (User)request.getSession().getAttribute("userData");
@@ -123,8 +137,16 @@ public class ListController {
 				System.out.println("Unable to update session user data: user= " + user.getName() + ";"+ e.getMessage());
 			}
 		}
-		RequestDispatcher dispatcher = getServletContext().getRequestDispatcher("/MyToDoList.jsp");
-		dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = context.getRequestDispatcher("/MyToDoList.jsp");
+		try {
+			dispatcher.forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void show(ServletContext context, HttpServletRequest request, HttpServletResponse response) {

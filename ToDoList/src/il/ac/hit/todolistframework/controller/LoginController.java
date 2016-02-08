@@ -1,4 +1,4 @@
-package il.ac.hit.todolistframework.model;
+package il.ac.hit.todolistframework.controller;
 
 import java.io.IOException;
 
@@ -9,12 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import il.ac.hit.todolistframework.helpers.ConsoleLogger;
-import il.ac.hit.todolistframework.model.*;
+import il.ac.hit.todolistframework.model.HibernateToDoListDAO;
+import il.ac.hit.todolistframework.model.ToDoListPlatformException;
+import il.ac.hit.todolistframework.model.User;
 
 public class LoginController {
 	private static ConsoleLogger log;
 	
-	LoginController(ConsoleLogger log){
+	public LoginController(ConsoleLogger log){
 		LoginController.log = log;
 	}
 	
