@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import il.ac.hit.todolistframework.helpers.ConsoleLogger;
 import il.ac.hit.todolistframework.model.HibernateToDoListDAO;
+import il.ac.hit.todolistframework.model.LoginController;
 import il.ac.hit.todolistframework.model.ToDoListPlatformException;
 import il.ac.hit.todolistframework.model.User;
 

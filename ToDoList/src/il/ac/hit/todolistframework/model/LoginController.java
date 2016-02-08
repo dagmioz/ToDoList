@@ -1,4 +1,4 @@
-package il.ac.hit.todolistframework.controller;
+package il.ac.hit.todolistframework.model;
 
 import java.io.IOException;
 
