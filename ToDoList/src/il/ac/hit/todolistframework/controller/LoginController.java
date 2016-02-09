@@ -13,14 +13,31 @@ import il.ac.hit.todolistframework.model.HibernateToDoListDAO;
 import il.ac.hit.todolistframework.model.ToDoListPlatformException;
 import il.ac.hit.todolistframework.model.User;
 
+/**
+ * 
+ * @author digic
+ *
+ */
 public class LoginController {
 	private static ConsoleLogger log;
-	
+	/**
+	 * 
+	 * @param log
+	 */
 	public LoginController(ConsoleLogger log){
 		LoginController.log = log;
 	}
-	
+	/**
+	 * 
+	 * @param context
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public boolean login(ServletContext context,HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		User user = new User();
 		if(!user.setName(request.getParameter("userName")) || !user.setPassword(request.getParameter("password")))
 		{
@@ -87,10 +104,27 @@ public class LoginController {
 		}
 		return false;
 	}
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 */
 	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		request.getSession().removeAttribute("userData");
 	}
+	/**
+	 * 
+	 * @param context
+	 * @param request
+	 * @param response
+	 */
 	public void show(ServletContext context,HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		try {
 			RequestDispatcher dispatcher = context.getRequestDispatcher("/Login.jsp");
 			dispatcher.forward(request, response);

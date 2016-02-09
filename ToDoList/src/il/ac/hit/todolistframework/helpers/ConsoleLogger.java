@@ -15,6 +15,9 @@ public class ConsoleLogger {
 	 */
 	private String now()
 	{
+		/*
+		 * 
+		 */
         Calendar cal = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH-mm-ss");
 		return sdf.format(cal.getTime());
@@ -25,6 +28,9 @@ public class ConsoleLogger {
 	 */
 	private String getLocation()
 	{
+		/*
+		 * 
+		 */
 		return Thread.currentThread().getStackTrace()[4].getMethodName();
 	}
 	/**
@@ -33,6 +39,9 @@ public class ConsoleLogger {
 	 * @param message
 	 */
 	private void write(String logType,String message){
+		/*
+		 * 
+		 */
 		System.out.println(now() + " [" + logType + "] " + getLocation() + ": " + message );
 	}
 	/**
@@ -40,6 +49,9 @@ public class ConsoleLogger {
 	 * @param message
 	 */
 	public void warning(String message){
+		/*
+		 * 
+		 */
 		write("WARNING",message);
 	}
 	/**
@@ -47,6 +59,9 @@ public class ConsoleLogger {
 	 * @param message
 	 */
 	public void error(String message){
+		/*
+		 * 
+		 */
 		write("ERROR",message);
 	}
 	/**
@@ -54,6 +69,9 @@ public class ConsoleLogger {
 	 * @param message
 	 */
 	public void info(String message){
+		/*
+		 * 
+		 */
 		write("INFO",message);
 	}
 	/**
@@ -61,6 +79,9 @@ public class ConsoleLogger {
 	 * @param message
 	 */
 	public void debug(String message){
+		/*
+		 * 
+		 */
 		write("DEBUG",message);
 	}
 }

@@ -13,40 +13,49 @@ import org.hibernate.cfg.Configuration;
 
 //there is a better way: as ENUM, to ask Haim:
 //Link: http://stackoverflow.com/questions/70689/what-is-an-efficient-way-to-implement-a-singleton-pattern-in-java
+/**
+ * 
+ * @author digic
+ *
+ */
 public class HibernateToDoListDAO implements IToDoListDAO {
 
 	private static final HibernateToDoListDAO INSTANCE = new HibernateToDoListDAO();
 	private SessionFactory factory;
-	
+	/**
+	 * 
+	 */
 	private HibernateToDoListDAO(){
-		System.out.println("Ctor: HibernateToDoListDAO()");
+		/*
+		 * 
+		 */
 		if(INSTANCE != null){
 			throw new IllegalStateException("HibernateToDoListDAO was already instantiated");
 		}
 		try{
-			System.out.println("Connect to DB: Configure configuration.");
 			Configuration configuration = new Configuration().configure(); 
-	        System.out.println("Connect to DB: Build session factory.");
 	        factory = configuration.buildSessionFactory();
 		}
 		catch(Exception e){
-			System.out.println("Ctor: HibernateToDoListDAO()|"+e.getMessage());
-			e.printStackTrace();
+			System.out.println("HibernateToDoListDAO()[Ctor] Error:"+e.getMessage());
 		}	
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public static HibernateToDoListDAO getInstance()
 	{
-		try{
-		System.out.println("getInstance():" + INSTANCE!=null);
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error: " + e.getMessage());
-		}
+		/*
+		 * 
+		 */
 		return INSTANCE;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void addUser(User user) throws ToDoListPlatformException {
 		Session session = factory.openSession();
@@ -211,12 +220,18 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 		return false;
 	}
 	 */
+	/**
+	 * 
+	 */
 	@Override
 	public boolean updateItem(Item item) throws ToDoListPlatformException {
+		/*
+		 * 
+		 */
 		Session session = factory.openSession();
 		try {
 			session.beginTransaction();
-			session.update(item);//this is the only change from add item function - ask haim
+			session.update(item);//this is the only change from add item function - ask haim. use update or add or update?
 			session.getTransaction().commit();
 			return true;
 		}
@@ -230,7 +245,13 @@ public class HibernateToDoListDAO implements IToDoListDAO {
 		return false; 
 	}
 
+	/**
+	 * 
+	 */
 	public User login(User user) throws ToDoListPlatformException {
+		/*
+		 * 
+		 */
 		System.out.println("login from hibernate...");
 		User authenticatedUser = getUser(user.getName());
 		if(authenticatedUser!=null && authenticatedUser.getPassword().equals(user.getPassword()))

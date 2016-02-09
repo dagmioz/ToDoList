@@ -31,6 +31,9 @@ public class FrontController extends HttpServlet {
      */
     private NavGuide analyzePath(String url)
     {
+    	/*
+    	 * 
+    	 */
     	String rUrl = url;
     	log.debug(url);
     	if(!rUrl.matches("^\\/ToDoList/pages.*"))
@@ -69,6 +72,9 @@ public class FrontController extends HttpServlet {
      * @return
      */
     private boolean isLoggedInUser(HttpServletRequest request){
+    	/*
+    	 * 
+    	 */
     	log.info("");
     	return request.getSession().getAttribute("userData")!=null;
     }
@@ -77,7 +83,9 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		/*
+		 * 
+		 */
 		NavGuide nav = analyzePath(request.getRequestURI());
 		//page does not exist
 		if(nav == NavGuide.PAGE_NOT_EXIST)
@@ -134,6 +142,9 @@ public class FrontController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		/*
+		 * 
+		 */
 		doGet(request, response);
 	}
 

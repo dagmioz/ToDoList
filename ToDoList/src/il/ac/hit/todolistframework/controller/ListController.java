@@ -11,14 +11,25 @@ import javax.servlet.http.HttpServletResponse;
 import il.ac.hit.todolistframework.helpers.ConsoleLogger;
 import il.ac.hit.todolistframework.model.*;
 
+/**
+ * 
+ * @author digic
+ *
+ */
 public class ListController {
 	private static ConsoleLogger log;
-	
+	/**
+	 * 
+	 * @param log
+	 */
 	public ListController(ConsoleLogger log) {
 		this.log = log;
 	}
 
 	public void add(HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		//log.info("Add an item");
 		User user = (User)request.getSession().getAttribute("userData");
 		
@@ -47,10 +58,20 @@ public class ListController {
 	}
 
 	public void edit(HttpServletRequest request, HttpServletResponse response) {
-
+		/*
+		 * 
+		 */
 	}
-
+	
+	/**
+	 * 
+	 * @param request
+	 * @param response
+	 */
 	public void remove(HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		User user = (User)request.getSession().getAttribute("userData");
 		
 		log.info("Trying to Complete (Delete) an item: id="+request.getParameter("itemId"));
@@ -71,11 +92,18 @@ public class ListController {
 			log.error("Unable to Complete (Delete) item: " + e.getMessage());
 		}
 	}
-
+	
+	/**
+	 * 
+	 * @param context
+	 * @param request
+	 * @param response
+	 */
 	public void removeGroup(ServletContext context, HttpServletRequest request, HttpServletResponse response)
 	{
-		log.info("MyToDoItemsController|doPost");
-
+		/*
+		 * 
+		 */
 		String[] itemsStr = request.getParameterValues("MyToDoItemCB");
 		if(itemsStr!=null)
 		{
@@ -91,7 +119,7 @@ public class ListController {
 					else
 						log.error("Unable to delete item: id=" + item.getIdItem());	
 				} catch(NumberFormatException | ToDoListPlatformException e) {
-					System.out.println("Unable to delete item: "+e.getMessage());
+					log.error(e.getMessage() + "; Unable to delete item: "+e.getMessage());
 				}
 			}
 			
@@ -100,16 +128,23 @@ public class ListController {
 				request.getSession().setAttribute("userData",HibernateToDoListDAO.getInstance().getUser(user.getName()));
 				log.info("Updated session user data: user= " + user.getName());
 			} catch (ToDoListPlatformException e) {
-				log.error("Unable to update session user data: user= " + user.getName());
-			} // + ";"+ e.getMessage()
+				log.error(e.getMessage() + "; Unable to update session user data: user= " + user.getName());
+			}
 		}
 	}
-	
+	/**
+	 * 
+	 * @param context
+	 * @param request
+	 * @param response
+	 */
 	public void show(ServletContext context, HttpServletRequest request, HttpServletResponse response) {
+		/*
+		 * 
+		 */
 		try {
 			RequestDispatcher dispatcher = context.getRequestDispatcher("/List.jsp");
 			dispatcher.forward(request, response);
-			//response.sendRedirect("/ToDoList/list");
 		} catch (ServletException | IOException e) {
 			log.error(e.getMessage());
 		}		
