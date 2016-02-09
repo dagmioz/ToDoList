@@ -26,7 +26,7 @@ Navigation bar:
 	    </div>
 		<ul class="nav navbar-nav navbar-right">
 	    	<li><a class="navbar-brand btn disabled"> Hello <%= userData.getName() %></a></li>
-	    	<li><a href="logout">Logout</a></li>
+	    	<li><a href="/ToDoList/logout">Logout</a></li>
 	    </ul>
 	</div>
 </nav>
@@ -38,7 +38,7 @@ End of navigation bar.
 	<!-- 
 	Add new item:
 	 -->
-	<form class="form-horizontal" action="MyToDoItems/Add" method="GET">
+	<form class="form-horizontal" action="/ToDoList/list/add" method="GET">
 		<div class="form-group">
 			&nbsp;
 		  	<div class="input-group">
@@ -57,7 +57,7 @@ End of navigation bar.
 	<!-- 
 	Table of items:
 	 -->
-	<form action="MyToDoItems" method="POST">
+	<form action="/ToDoList/list/removeGroup" method="POST">
 		<table class="table table-striped table-hover ">
 			<thead>
 				<tr>
@@ -75,9 +75,9 @@ End of navigation bar.
 					out.print("<td>"+toDoItem.getWhatToDo()+"</td>");
 					
 					out.print("<td>");
-					out.print("<a class=\"btn btn-default btn-sm btn-success\" href=\"MyToDoItems/Complete?itemId="+toDoItem.getIdItem()+"\">Complete</a>");
+					out.print("<a class=\"btn btn-default btn-sm btn-success\" href=\"/ToDoList/list/remove?itemId="+toDoItem.getIdItem()+"\">Complete</a>");
 					out.print("&nbsp;");
-					out.print("<a class=\"btn btn-default btn-sm btn-warning\" href=\"MyToDoItems/Complete?itemId="+toDoItem.getIdItem()+"\">Edit</a>");
+					out.print("<a class=\"btn btn-default btn-sm btn-warning\" href=\"/ToDoList/list/edit?itemId="+toDoItem.getIdItem()+"\">Edit</a>");
 					out.print("</td>");
 					out.print("</tr>");
 				}

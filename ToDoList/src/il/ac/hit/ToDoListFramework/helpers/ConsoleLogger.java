@@ -25,7 +25,7 @@ public class ConsoleLogger {
 	 */
 	private String getLocation()
 	{
-		return Thread.currentThread().getStackTrace()[5].getMethodName();
+		return Thread.currentThread().getStackTrace()[4].getMethodName();
 	}
 	/**
 	 * 

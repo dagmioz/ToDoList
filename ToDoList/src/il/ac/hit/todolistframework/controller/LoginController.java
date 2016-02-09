@@ -95,8 +95,7 @@ public class LoginController {
 			RequestDispatcher dispatcher = context.getRequestDispatcher("/Login.jsp");
 			dispatcher.forward(request, response);
 		} catch (ServletException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e.getMessage());
 		}
 	}
 }

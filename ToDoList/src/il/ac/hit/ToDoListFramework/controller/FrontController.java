@@ -2,7 +2,6 @@ package il.ac.hit.todolistframework.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 
@@ -11,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import il.ac.hit.todolistframework.helpers.ConsoleLogger;
-import il.ac.hit.todolistframework.model.HibernateToDoListDAO;
-import il.ac.hit.todolistframework.model.ToDoListPlatformException;
-import il.ac.hit.todolistframework.model.User;
 
 /**
  * Servlet implementation class FrontController
@@ -28,6 +24,11 @@ public class FrontController extends HttpServlet {
 	private static final ListController listController = new ListController(log);
     private static final LoginController loginController = new LoginController(log);
     
+    /**
+     * 
+     * @param url
+     * @return
+     */
     private NavGuide analyzePath(String url)
     {
     	String rUrl = url;
@@ -62,6 +63,11 @@ public class FrontController extends HttpServlet {
     	return NavGuide.PAGE_NOT_EXIST;
     }
 
+    /**
+     * 
+     * @param request
+     * @return
+     */
     private boolean isLoggedInUser(HttpServletRequest request){
     	log.info("");
     	return request.getSession().getAttribute("userData")!=null;
@@ -72,69 +78,62 @@ public class FrontController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// TODO Auto-generated method stub
-		switch(analyzePath(request.getRequestURI()))
+		NavGuide nav = analyzePath(request.getRequestURI());
+		//page does not exist
+		if(nav == NavGuide.PAGE_NOT_EXIST)
 		{
-		case LOGIN_LOGIN:
-			log.info("login");
-			if(!isLoggedInUser(request)){
-				if(!loginController.login(getServletContext(),request,response)){
-					loginController.show(getServletContext(),request,response);
-					break;
-				}
-			}
-			log.info("user is logged in");
-			//logged in already or just succeed to log in go to list
-			listController.show(getServletContext(),request,response);
-			break;
-		case LOGIN_SHOW:
-			log.info("welcome page");
-		case TODOLIST_SHOW:
-			log.info("show my todo list");
-			//listController.show(getServletContext(),request,response);
-			if(isLoggedInUser(request))
-				listController.show(getServletContext(),request,response);
-			else
-				loginController.show(getServletContext(),request,response);
-			break;
-		case LOGIN_LOGOUT:
-			log.info("logout");
-			loginController.logout(request,response);
-			loginController.show(getServletContext(),request,response);
-			break;
-		case PAGE_NOT_EXIST:
 			log.info("page not exist");
 			getServletContext().getRequestDispatcher("/Error.jsp").forward(request, response);
-			break;
+			return;
+		}
+		//user is not logged in
+		if(!isLoggedInUser(request))
+		{
+			if(nav == NavGuide.LOGIN_LOGIN && loginController.login(getServletContext(),request,response)){
+					//login succeed
+				listController.show(getServletContext(),request,response);
+			}else 	//login failed
+				loginController.show(getServletContext(),request,response);
+			return;
+		}
+		//user is logged in
+		if(nav == NavGuide.LOGIN_LOGOUT)
+		{
+			loginController.logout(request,response);
+			loginController.show(getServletContext(),request,response);
+			return;
+		}
+		
+		switch(nav)
+		{
 		case TODOLIST_ADD:
-			log.info("add");
 			listController.add(request,response);
 			break;
 		case TODOLIST_EDIT:
-			log.info("edit");
 			listController.edit(request,response);
 			break;
 		case TODOLIST_REMOVE:
-			log.info("remove");
 			listController.remove(request,response);
 			break;
 		case TODOLIST_REMOVE_GROUP:
-			log.info("remove group");
 			listController.removeGroup(getServletContext(), request,response);
 			break;
+		case LOGIN_LOGIN: 	//was taken care of before
+		case LOGIN_LOGOUT: 	//was taken care of before
+		case PAGE_NOT_EXIST://was taken care of before
+		case LOGIN_SHOW: 	//logged in user must log out first
+		case TODOLIST_SHOW: //directed after the switch statement
 		default:
-			log.warning("nothing");
-			break;
+			break;		
 		}
 		
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		listController.show(getServletContext(),request,response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
