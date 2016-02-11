@@ -39,7 +39,7 @@ End of navigation bar.
 	Add new item:
 	 -->
 	<form class="form-horizontal" action="/ToDoList/list/add" method="GET">
-		<div class="form-group">
+		<div class="form-group" id="AddItem">
 			&nbsp;
 		  	<div class="input-group">
 			    <span class="input-group-addon">>_</span>
@@ -51,6 +51,29 @@ End of navigation bar.
 	  		&nbsp;
 	  	</div>
 	</form>
+	<form class="form-horizontal" action="/ToDoList/list/edit" method="GET">
+		 <div class="form-group" id="EditItem" style="display: none;">
+			&nbsp;
+		  	<div class="input-group">
+			    <span class="input-group-addon">>_</span>
+			    <input type="hidden" id="EditItemId" name="itemId" value=""> 
+			    <input class="form-control" type="text" id="EditItemText" name="whatToDo" placeholder="Remember to...">
+			    <span class="input-group-btn">
+			    	<input class="btn btn-warning" type="submit" value="Update Item" />
+			    </span>
+	  		</div>
+	  		&nbsp;
+	  	</div>
+   </form>
+   <div class="form-group has-error">
+   		<label class="control-label">
+   			<%
+   			String errorMessage = (String)request.getAttribute("errorMessage");
+   			if(errorMessage!=null)
+   				out.print(errorMessage);
+   			%>
+  		</label>
+   	</div>
 	<!-- 
 	End of add new item.
 	 -->
@@ -77,7 +100,7 @@ End of navigation bar.
 					out.print("<td>");
 					out.print("<a class=\"btn btn-default btn-sm btn-success\" href=\"/ToDoList/list/remove?itemId="+toDoItem.getIdItem()+"\">Complete</a>");
 					out.print("&nbsp;");
-					out.print("<a class=\"btn btn-default btn-sm btn-warning\" href=\"/ToDoList/list/edit?itemId="+toDoItem.getIdItem()+"\">Edit</a>");
+					out.print("<a class=\"btn btn-default btn-sm btn-warning\" onclick=\"toggleEdit('"+toDoItem.getIdItem()+"','"+toDoItem.getWhatToDo()+"');\">Edit</a>");
 					out.print("</td>");
 					out.print("</tr>");
 				}
@@ -149,6 +172,16 @@ function allToggled() {
   		finalToggleStatus = finalToggleStatus & checkboxes[i].checked;
 	}
   	masterCheckbox[0].checked = finalToggleStatus;
+}
+
+function toggleEdit(id,whatToDo){
+	var editForm = document.getElementById('EditItem');
+	editForm.style.display='block';
+	document.getElementById('EditItemId').value = id;
+	document.getElementById('EditItemText').value = whatToDo;
+	//editForm.
+	var addForm = document.getElementById('AddItem');
+	addForm.style.display='none';
 }
 </script>
 

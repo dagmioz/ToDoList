@@ -14,9 +14,12 @@
 <div align="center">
 	<h1>To-Do-List Error page</h1>
 </div>
-Message:
 <br />
-<!-- <%-- =exception.getMessage() --%> -->
+<center><h2>
+ <%= exception.getMessage() %> 
+</h2></center>
+<br />
+
 
 </body>
 </html>

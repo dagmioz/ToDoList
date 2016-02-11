@@ -1,5 +1,9 @@
 package il.ac.hit.todolistframework.controller;
 
+/**
+ * Enum class thats lists all the possible requests that can be performed in this dynamic web project.
+ * using the FrontController servlet.
+ */
 public enum NavGuide {
 	PAGE_NOT_EXIST(0),
 	
@@ -7,7 +11,7 @@ public enum NavGuide {
 	TODOLIST_ADD(2),
 	TODOLIST_EDIT(4),
 	TODOLIST_REMOVE(3),
-	TODOLIST_REMOVE_GROUP(5),
+	TODOLIST_REMOVE_GROUP(5), //POST
 	
 	LOGIN_SHOW(6),
 	LOGIN_LOGIN(7),		//POST login and create new account
